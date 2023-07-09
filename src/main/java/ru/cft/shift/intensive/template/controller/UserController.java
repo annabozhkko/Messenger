@@ -23,7 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Validated
 @RestController
 //@CrossOrigin(origins = "*")
-@RequestMapping("user")
+@RequestMapping("api/users")
 @Tag(name = "api.user.tag.name", description = "api.user.tag.description")
 public class UserController {
   private final UsersService usersService;
@@ -43,12 +43,14 @@ public class UserController {
     return ResponseEntity.ok(this.usersService.list());
   }
 
+  // из нашего апи Создание пользователя
   @Operation(summary = "api.user.create.operation.summary")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "api.user.create.api-responses.200.description"),
       @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
+          // HTTP Status 400
   })
-  @PostMapping()
+  @PostMapping("register")
   public ResponseEntity<UsernameDto> createUser(@RequestBody @Valid UserDto user) {
     return ResponseEntity.ok(this.usersService.create(user));
   }
@@ -60,11 +62,13 @@ public class UserController {
       @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
   })
   @DeleteMapping("{username}")
-  public ResponseEntity<Void> deleteUser(@PathVariable @Size(min = 3, max = 50) String username) {
+  public ResponseEntity<Void> deleteUser(@PathVariable @Size(min = 5, max = 32) String username) {
     this.usersService.delete(username);
     return ResponseEntity.ok().build();
   }
 
+
+  // Получение данных о пользователе
   @Operation(summary = "api.user.get.operation.summary")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "api.user.get.api-responses.200.description"),
@@ -74,5 +78,23 @@ public class UserController {
   @GetMapping("{username}")
   public ResponseEntity<UserDto> getUser(@PathVariable @Size(min = 3, max = 50) String username) {
     return ResponseEntity.ok(this.usersService.findByUsername(username));
+  }
+
+  // Изменение своего профиля
+  @Operation(summary = "api.user.update.operation.summary")
+  @ApiResponses(value = {
+          @ApiResponse(responseCode = "200", description = "api.user.update.api-responses.200.description"),
+          @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
+  })
+  @PatchMapping("edit")
+  public ResponseEntity<UsernameDto> edit(@RequestBody @Valid UserDto user){
+    return ResponseEntity.ok().build();
+  }
+
+  @GetMapping("search")
+  public ResponseEntity<List<UserDto>> search(){
+    // отдельный тип сделать для поиска
+    // или переменные по каждому фильтру
+    return ResponseEntity.ok().build();
   }
 }

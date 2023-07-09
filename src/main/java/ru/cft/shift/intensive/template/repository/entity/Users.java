@@ -4,25 +4,33 @@ import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Date;
 
 @Table("users")
 public class Users {
   @PrimaryKey
   private String username;
   @Column
+  private String firstName;
+  @Column
+  private String lastName;
+  @Column
+  private String patronymic;
+  @Column
   private String password;
   @Column
-  private Set<String> roles = new HashSet<>();
+  private Date birthday;
 
   public Users() {
   }
 
-  public Users(String username, String password, Set<String> roles) {
+  public Users(String username, String password, String firstName, String lastName, String patronymic, Date birthday) {
     this.username = username;
     this.password = password;
-    this.roles = roles;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.patronymic = patronymic;
+    this.birthday = birthday;
   }
 
   public String getUsername() {
@@ -41,11 +49,35 @@ public class Users {
     this.password = password;
   }
 
-  public Set<String> getRoles() {
-    return roles;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setRoles(Set<String> roles) {
-    this.roles = roles;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public String getPatronymic() {
+    return patronymic;
+  }
+
+  public void setPatronymic(String patronymic) {
+    this.patronymic = patronymic;
+  }
+
+  public Date getBirthday() {
+    return birthday;
+  }
+
+  public void setBirthday(Date birthday) {
+    this.birthday = birthday;
   }
 }

@@ -28,13 +28,15 @@ public class UsersServiceImpl implements UsersService {
   @Override
   public UserDto findByUsername(String username) {
     return this.usersRepository.findById(username)
-        .map(user -> new UserDto(user.getUsername(), user.getPassword(), user.getRoles()))
+        .map(user -> new UserDto(user.getUsername(), user.getPassword(), user.getFirstName(), user.getLastName(),
+                user.getPatronymic(), user.getBirthday()))
         .orElseThrow(UsernameNotFoundException::new);
   }
 
   @Override
   public UsernameDto create(UserDto user) {
-    Users users = new Users(user.username(), user.password(), user.roles());
+    Users users = new Users(user.username(), user.password(), user.firstName(), user.lastName(),
+            user.patronymic(), user.birthday());
     return new UsernameDto(this.usersRepository.save(users).getUsername());
   }
 

@@ -1,6 +1,6 @@
 spring:
   cassandra:
-    keyspace-name: template
+    keyspace-name: messenger
     username: cassandra
     password: cassandra
     schema-action: create_if_not_exists
