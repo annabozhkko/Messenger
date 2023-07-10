@@ -24,30 +24,33 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Tag(name = "api.chat.tag.name", description = "api.chat.tag.description")
 public class ChatController {
 
+    // Получение списка диалогов пользователя
     @Operation(summary = "api.chat.operation.summary")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
             // 404
     })
-    @GetMapping("list")
+    @GetMapping("{username}")
     public ResponseEntity<ChatDto> list(@PathVariable @Size(min = 5, max = 32) String username){
         // chatDto - ???
         return ResponseEntity.ok().build();
     }
 
+    // Получение сообщений из чата
     @Operation(summary = "api.chat.messages.operation.summary")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.messages.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
             // 404
     })
-    @GetMapping("get-messages")
+    @GetMapping()
     public ResponseEntity<List<MessageDto>> getMessages(@PathVariable @Size(min = 3, max = 50) String username1,
                                                         @PathVariable @Size(min = 3, max = 50) String username2){
         return ResponseEntity.ok().build();
     }
 
+    // Отправка сообщений в чат
     @Operation(summary = "api.chat.messages.send.operation.summary")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.messages.send.api-responses.200.description"),

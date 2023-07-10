@@ -16,6 +16,7 @@ import ru.cft.shift.intensive.template.dto.UserDto;
 import ru.cft.shift.intensive.template.dto.UsernameDto;
 import ru.cft.shift.intensive.template.service.UsersService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -86,15 +87,16 @@ public class UserController {
           @ApiResponse(responseCode = "200", description = "api.user.update.api-responses.200.description"),
           @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
   })
-  @PatchMapping("edit")
+  @PatchMapping()
   public ResponseEntity<UsernameDto> edit(@RequestBody @Valid UserDto user){
     return ResponseEntity.ok(usersService.update(user));
   }
 
-  @GetMapping("search")
-  public ResponseEntity<List<UserDto>> search(){
-    // отдельный тип сделать для поиска
-    // или переменные по каждому фильтру
+  @GetMapping()
+  public ResponseEntity<List<UserDto>> search(@PathVariable @Size(min = 5, max = 32) String username,
+                                              @PathVariable @Size(min = 1, max = 64) String firstName,
+                                              @PathVariable @Size(min = 1, max = 64) String lastName,
+                                              @PathVariable LocalDate birthday){
     return ResponseEntity.ok().build();
   }
 }
