@@ -5,20 +5,21 @@ import org.springframework.data.cassandra.core.mapping.*;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.UUID;
 
-@Table("messages")
-public class Messages {
+@Table("group_messages")
+public class GroupMessages {
     @PrimaryKey
     private Key key = new Key();
+    @Column
+    private String userFrom;
     @Column
     private String message;
 
     @PrimaryKeyClass
     public static class Key {
-        @PrimaryKeyColumn(name = "to_user", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
-        private String userTo;
-        @PrimaryKeyColumn(name = "from_user", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
-        private String userFrom;
+        @PrimaryKeyColumn(name = "group_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
+        private UUID id;
         @PrimaryKeyColumn(name = "message_date", type = PrimaryKeyType.CLUSTERED, ordinal = 1)
         private Date date;
         @PrimaryKeyColumn(name = "message_time", type = PrimaryKeyType.CLUSTERED, ordinal = 1)
@@ -26,29 +27,30 @@ public class Messages {
 
         public Key() {
         }
-
-        public Key(String userTo, String userFrom, Date date, LocalTime time) {
-            this.userTo = userTo;
-            this.userFrom = userFrom;
-            this.date = date;
-            this.time = time;
-        }
     }
 
-    public void setUserTo(String userTo){
-        key.userTo = userTo;
+    public String getUserFrom() {
+        return userFrom;
     }
 
-    public String getUserTo(){
-        return key.userTo;
+    public void setUserFrom(String userFrom) {
+        this.userFrom = userFrom;
     }
 
-    public void setUserFrom(String userFrom){
-        key.userFrom = userFrom;
+    public String getMessage() {
+        return message;
     }
 
-    public String getUserFrom(){
-        return key.userFrom;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public UUID getId() {
+        return key.id;
+    }
+
+    public void setId(UUID id) {
+        this.key.id = id;
     }
 
     public void setDate(Date date){
@@ -66,13 +68,4 @@ public class Messages {
     public LocalTime getTime(){
         return key.time;
     }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
 }
