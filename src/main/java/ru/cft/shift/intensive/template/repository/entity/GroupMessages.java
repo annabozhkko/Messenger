@@ -11,9 +11,9 @@ import java.util.UUID;
 public class GroupMessages {
     @PrimaryKey
     private Key key = new Key();
-    @Column
+    @Column(value = "user_from")
     private String userFrom;
-    @Column
+    @Column(value = "message")
     private String message;
 
     @PrimaryKeyClass

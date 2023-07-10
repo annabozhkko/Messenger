@@ -10,7 +10,7 @@ import java.util.Date;
 public class Messages {
     @PrimaryKey
     private Key key = new Key();
-    @Column
+    @Column(value = "message")
     private String message;
 
     @PrimaryKeyClass

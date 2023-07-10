@@ -45,4 +45,13 @@ public class UsersServiceImpl implements UsersService {
     Users users = this.usersRepository.findById(username).orElseThrow(UsernameNotFoundException::new);
     this.usersRepository.delete(users);
   }
+
+  @Override
+  public UsernameDto update(UserDto user) {
+    Users oldUsers = usersRepository.findById(user.username()).orElseThrow(UsernameNotFoundException::new);
+    String password = oldUsers.getPassword();
+    Users users = new Users(user.username(), password, user.firstName(), user.lastName(),
+            user.patronymic(), user.birthday());
+    return new UsernameDto(this.usersRepository.save(users).getUsername());
+  }
 }

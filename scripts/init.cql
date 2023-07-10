@@ -43,3 +43,6 @@ create table messenger.group_messages
     message_time    time,
     primary key ( (group_id), message_date, message_time )
 ) with clustering order by ( message_date desc, message_time desc);
+
+INSERT INTO messenger.users(username, birthday, first_name, last_name, password)
+VALUES ('aaaaaaaa', '2001-01-01', 'Anna', 'Bozhko', 'qwerty');

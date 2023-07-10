@@ -9,13 +9,13 @@ import java.util.UUID;
 
 @Table("group_list")
 public class Groups {
-    @PrimaryKey
+    @PrimaryKey(value = "group_id")
     private UUID id;
-    @Column
+    @Column(value = "admin")
     private String admin;
-    @Column
+    @Column(value = "title")
     private String title;
-    @Column
+    @Column(value = "users")
     private Set<String> users;
 
     public Groups(){

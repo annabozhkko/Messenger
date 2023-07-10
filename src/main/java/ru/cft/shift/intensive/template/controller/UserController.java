@@ -76,7 +76,7 @@ public class UserController {
       @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
   })
   @GetMapping("{username}")
-  public ResponseEntity<UserDto> getUser(@PathVariable @Size(min = 3, max = 50) String username) {
+  public ResponseEntity<UserDto> getUser(@PathVariable @Size(min = 1, max = 64) String username) {
     return ResponseEntity.ok(this.usersService.findByUsername(username));
   }
 
@@ -88,7 +88,7 @@ public class UserController {
   })
   @PatchMapping("edit")
   public ResponseEntity<UsernameDto> edit(@RequestBody @Valid UserDto user){
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok(usersService.update(user));
   }
 
   @GetMapping("search")

@@ -13,4 +13,6 @@ public interface UsersService {
   UsernameDto create(UserDto user);
 
   void delete(String username);
+
+  UsernameDto update(UserDto user);
 }
