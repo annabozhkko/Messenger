@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.cft.shift.intensive.template.dto.ChatDto;
+import ru.cft.shift.intensive.template.dto.GroupDto;
 import ru.cft.shift.intensive.template.dto.MessageDto;
-import ru.cft.shift.intensive.template.service.MessagesService;
+import ru.cft.shift.intensive.template.service.GroupsService;
 
 import java.util.List;
 
@@ -22,53 +22,57 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Validated
 @RestController
-@RequestMapping("api/chats")
-@Tag(name = "api.chat.tag.name", description = "api.chat.tag.description")
-public class ChatController {
-    private final MessagesService messagesService;
+@RequestMapping("api/groups")
+@Tag(name = "api.group.tag.name", description = "api.group.tag.description")
+public class GroupController {
+    private final GroupsService groupsService;
 
     @Autowired
-    public ChatController(MessagesService messagesService) {
-        this.messagesService = messagesService;
+    public GroupController(GroupsService groupsService) {
+        this.groupsService = groupsService;
     }
 
-    // Получение списка диалогов пользователя
-    @Operation(summary = "api.chat.operation.summary")
+    @Operation(summary = "api.group.operation.summary")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "api.chat.api-responses.200.description"),
+            @ApiResponse(responseCode = "200", description = "api.group.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
             // 404
     })
     @GetMapping("{username}")
-    public ResponseEntity<ChatDto> getChats(@PathVariable @Size(min = 5, max = 32) String username){
-        // chatDto - ???
+    public ResponseEntity<GroupDto> getChats(@PathVariable @Size(min = 5, max = 32) String username){
         return ResponseEntity.ok().build();
     }
 
-    // Получение сообщений из чата
-    @Operation(summary = "api.chat.messages.operation.summary")
+    @Operation(summary = "api.group.messages.operation.summary")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "api.chat.messages.api-responses.200.description"),
+            @ApiResponse(responseCode = "200", description = "api.group.messages.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
             // 404
     })
     @GetMapping()
-    public ResponseEntity<List<MessageDto>> getMessages(@RequestBody @Valid ChatDto chat){
-        return ResponseEntity.ok(messagesService.getMessages(chat.user1(), chat.user2()));
+    public ResponseEntity<List<MessageDto>> getMessages(@RequestBody @Valid GroupDto group){
+        return ResponseEntity.ok().build();
     }
 
-    // Отправка сообщений в чат
-    @Operation(summary = "api.chat.messages.send.operation.summary")
+    @Operation(summary = "api.group.messages.send.operation.summary")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "api.chat.messages.send.api-responses.200.description"),
+            @ApiResponse(responseCode = "200", description = "api.group.messages.send.api-responses.200.description"),
+            @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
+            // 404
+    })
+    @PostMapping("{groupId}")
+    public ResponseEntity<Void> sendMessage(){
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "api.group.create.operation.summary")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "api.group.create.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
             // 404
     })
     @PostMapping()
-    public ResponseEntity<Void> sendMessage(@RequestBody @Valid MessageDto message){
-        // проверить что юзеры существуют
-        messagesService.sendMessage(message);
+    public ResponseEntity<Void> create(@RequestBody @Valid GroupDto group){
         return ResponseEntity.ok().build();
     }
-
 }

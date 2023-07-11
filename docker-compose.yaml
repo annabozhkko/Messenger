@@ -11,3 +11,28 @@ services:
       - '9042:9042'
     volumes:
       - '~/data/cassandra:/var/lib/cassandra'
+
+
+
+
+#services:
+#  app:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - 8080:8080
+#    depends_on:
+#      - cassandra
+#  cassandra:
+#    image: 'cassandra:4.1.2'
+#    container_name: template_cassandra
+#    environment:
+#          - 'CASSANDRA_DC=dc1'
+#          - 'CASSANDRA_ENDPOINT_SNITCH=GossipingPropertyFileSnitch'
+#          - 'CASSANDRA_CLUSTER_NAME=cluster1'
+#    ports:
+#      - 9042:9042
+#    volumes:
+#      - '~/data/cassandra:/var/lib/cassandra'
+##      - ./scripts:/docker-entrypoint-initdb.d
