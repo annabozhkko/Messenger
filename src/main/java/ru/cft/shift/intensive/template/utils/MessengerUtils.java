@@ -18,5 +18,5 @@ public class MessengerUtils {
                     groupMessages.getDate(), groupMessages.getTime());
 
     public static final Function<Groups, GroupDto> TO_GROUPS_DTO_FUNCTION = groups ->
-            new GroupDto(groups.getId(), groups.getAdmin(), groups.getTitle(), groups.getUsers());
+            new GroupDto(groups.getAdmin(), groups.getTitle(), groups.getUsers());
 }

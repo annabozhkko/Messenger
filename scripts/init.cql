@@ -29,7 +29,7 @@ create table if not exists messenger.messages
 create table if not exists messenger.group_list
 (   admin       text,
     title       text,
-    users       frozen<set<text>>,
+    users       set<text>,
     group_id    uuid,
     primary key (group_id)
 );

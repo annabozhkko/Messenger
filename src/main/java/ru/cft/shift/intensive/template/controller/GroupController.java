@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shift.intensive.template.dto.GroupDto;
+import ru.cft.shift.intensive.template.dto.GroupIdDto;
 import ru.cft.shift.intensive.template.dto.GroupMessageDto;
 import ru.cft.shift.intensive.template.service.GroupMessagesService;
 import ru.cft.shift.intensive.template.service.GroupsService;
@@ -53,8 +54,8 @@ public class GroupController {
             // 404
     })
     @GetMapping()
-    public ResponseEntity<List<GroupMessageDto>> getMessages(@RequestBody @Valid GroupDto group){
-        return ResponseEntity.ok(groupsService.getMessages(group.groupId()));
+    public ResponseEntity<List<GroupMessageDto>> getMessages(@RequestBody @Valid GroupIdDto groupId){
+        return ResponseEntity.ok(groupsService.getMessages(groupId.groupId()));
     }
 
     @Operation(summary = "api.group.messages.send.operation.summary")
