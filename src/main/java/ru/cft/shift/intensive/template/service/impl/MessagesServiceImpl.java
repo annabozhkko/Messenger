@@ -43,13 +43,13 @@ public class MessagesServiceImpl implements MessagesService {
     }
 
     @Override
-    public void sendMessage(MessageDto message) {
+    public void sendMessage(MessageDto messageDto) {
         Messages messages = new Messages();
-        messages.setUserFrom(message.userFrom());
-        messages.setUserTo(message.userTo());
-        messages.setMessage(message.message());
-        messages.setDate(message.date());
-        messages.setTime(message.time());
+        messages.setUserFrom(messageDto.userFrom());
+        messages.setUserTo(messageDto.userTo());
+        messages.setMessage(messageDto.message());
+        messages.setDate(messageDto.date());
+        messages.setTime(messageDto.time());
 
         messagesRepository.save(messages);
     }

@@ -13,7 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shift.intensive.template.dto.GroupDto;
-import ru.cft.shift.intensive.template.dto.MessageDto;
+import ru.cft.shift.intensive.template.dto.GroupMessageDto;
+import ru.cft.shift.intensive.template.service.GroupMessagesService;
 import ru.cft.shift.intensive.template.service.GroupsService;
 
 import java.util.List;
@@ -26,10 +27,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Tag(name = "api.group.tag.name", description = "api.group.tag.description")
 public class GroupController {
     private final GroupsService groupsService;
+    private final GroupMessagesService groupMessagesService;
 
     @Autowired
-    public GroupController(GroupsService groupsService) {
+    public GroupController(GroupsService groupsService, GroupMessagesService groupMessagesService) {
         this.groupsService = groupsService;
+        this.groupMessagesService = groupMessagesService;
     }
 
     @Operation(summary = "api.group.operation.summary")
@@ -39,8 +42,8 @@ public class GroupController {
             // 404
     })
     @GetMapping("{username}")
-    public ResponseEntity<GroupDto> getChats(@PathVariable @Size(min = 5, max = 32) String username){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<GroupDto>> getChats(@PathVariable @Size(min = 5, max = 32) String username){
+        return ResponseEntity.ok(groupsService.getChats(username));
     }
 
     @Operation(summary = "api.group.messages.operation.summary")
@@ -50,8 +53,8 @@ public class GroupController {
             // 404
     })
     @GetMapping()
-    public ResponseEntity<List<MessageDto>> getMessages(@RequestBody @Valid GroupDto group){
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<GroupMessageDto>> getMessages(@RequestBody @Valid GroupDto group){
+        return ResponseEntity.ok(groupsService.getMessages(group.groupId()));
     }
 
     @Operation(summary = "api.group.messages.send.operation.summary")
@@ -60,8 +63,9 @@ public class GroupController {
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
             // 404
     })
-    @PostMapping("{groupId}")
-    public ResponseEntity<Void> sendMessage(){
+    @PostMapping()
+    public ResponseEntity<Void> sendMessage( @RequestBody @Valid GroupMessageDto message){
+        groupMessagesService.sendMessage(message);
         return ResponseEntity.ok().build();
     }
 
@@ -71,8 +75,9 @@ public class GroupController {
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
             // 404
     })
-    @PostMapping()
+    @PostMapping("/new")
     public ResponseEntity<Void> create(@RequestBody @Valid GroupDto group){
+        groupsService.create(group);
         return ResponseEntity.ok().build();
     }
 }

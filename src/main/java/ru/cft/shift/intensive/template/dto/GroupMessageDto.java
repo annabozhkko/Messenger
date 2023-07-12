@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
 
-public record GroupMessageDto(@NotEmpty UUID groupId,
+public record GroupMessageDto(UUID groupId,
                               @NotEmpty @Size(min = 5, max = 32) String userFrom,
                               @NotEmpty @Size(min = 1, max = 255) String message,
                               @NotNull LocalDate date,

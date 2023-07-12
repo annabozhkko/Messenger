@@ -3,8 +3,8 @@ package ru.cft.shift.intensive.template.repository.entity;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Table("group_messages")
@@ -19,9 +19,9 @@ public class GroupMessages {
     @PrimaryKeyClass
     public static class Key {
         @PrimaryKeyColumn(name = "group_id", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
-        private UUID id;
+        private UUID groupId;
         @PrimaryKeyColumn(name = "message_date", type = PrimaryKeyType.CLUSTERED, ordinal = 1)
-        private Date date;
+        private LocalDate date;
         @PrimaryKeyColumn(name = "message_time", type = PrimaryKeyType.CLUSTERED, ordinal = 1)
         private LocalTime time;
 
@@ -45,19 +45,19 @@ public class GroupMessages {
         this.message = message;
     }
 
-    public UUID getId() {
-        return key.id;
+    public UUID getGroupId() {
+        return key.groupId;
     }
 
-    public void setId(UUID id) {
-        this.key.id = id;
+    public void setGroupId(UUID groupId) {
+        this.key.groupId = groupId;
     }
 
-    public void setDate(Date date){
+    public void setDate(LocalDate date){
         key.date = date;
     }
 
-    public Date getDate(){
+    public LocalDate getDate(){
         return key.date;
     }
 

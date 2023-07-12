@@ -29,7 +29,7 @@ create table if not exists messenger.messages
 create table if not exists messenger.group_list
 (   admin       text,
     title       text,
-    users       set<text>,
+    users       frozen<set<text>>,
     group_id    uuid,
     primary key (group_id)
 );
@@ -43,5 +43,3 @@ create table if not exists messenger.group_messages
     message_time    time,
     primary key ( (group_id), message_date, message_time )
 ) with clustering order by ( message_date desc, message_time desc);
-
-

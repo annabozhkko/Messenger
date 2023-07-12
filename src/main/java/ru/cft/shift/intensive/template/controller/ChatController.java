@@ -40,7 +40,7 @@ public class ChatController {
             // 404
     })
     @GetMapping("{username}")
-    public ResponseEntity<ChatDto> getChats(@PathVariable @Size(min = 5, max = 32) String username){
+    public ResponseEntity<List<ChatDto>> getChats(@PathVariable @Size(min = 5, max = 32) String username){
         // chatDto - ???
         return ResponseEntity.ok().build();
     }
