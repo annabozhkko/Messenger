@@ -6,8 +6,8 @@ import ru.cft.shift.intensive.template.service.GptJSONService;
 
 import java.util.List;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class GptJSONServiceImpl implements GptJSONService {
-    @JsonProperty("choices")
     private List<Choice> choices;
 
     public String getAnswer() {
@@ -21,13 +21,13 @@ public class GptJSONServiceImpl implements GptJSONService {
         return choices;
     }
 
+    @JsonProperty("choices")
     public void setChoices(List<Choice> choices) {
         this.choices = choices;
     }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Choice {
-        @JsonProperty("text")
         private String text;
 
         public String getText() {
@@ -36,6 +36,10 @@ public class GptJSONServiceImpl implements GptJSONService {
 
         public void setText(String text) {
             this.text = text;
+        }
+
+        // Добавлен пустой конструктор для десериализации
+        public Choice() {
         }
     }
 }
