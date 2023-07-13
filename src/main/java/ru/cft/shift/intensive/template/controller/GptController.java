@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import ru.cft.shift.intensive.template.service.impl.GptJSONServiceImpl;
+import ru.cft.shift.intensive.template.utils.GptUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -92,7 +92,7 @@ public class GptController {
 
         if (responseEntity.getStatusCode().is2xxSuccessful()) {
             try {
-                GptJSONServiceImpl gptJSONServiceImpl = objectMapper.readValue(responseEntity.getBody(), GptJSONServiceImpl.class);
+                GptUtils gptJSONServiceImpl = objectMapper.readValue(responseEntity.getBody(), GptUtils.class);
                 String answer = gptJSONServiceImpl.getAnswer();
 
                 // Создаем объект GptResponseWrapper с ответом

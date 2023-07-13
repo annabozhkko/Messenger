@@ -1,13 +1,12 @@
-package ru.cft.shift.intensive.template.service.impl;
+package ru.cft.shift.intensive.template.utils;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import ru.cft.shift.intensive.template.service.GptJSONService;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GptJSONServiceImpl implements GptJSONService {
+public class GptUtils {
     private List<Choice> choices;
 
     public String getAnswer() {
