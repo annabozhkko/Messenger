@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import ru.cft.shift.intensive.template.dto.GroupMessageDto;
 import ru.cft.shift.intensive.template.service.GroupMessagesService;
 import ru.cft.shift.intensive.template.service.GroupsService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -54,8 +56,8 @@ public class GroupController {
             // 404
     })
     @GetMapping()
-    public ResponseEntity<List<GroupMessageDto>> getMessages(@RequestBody @Valid GroupIdDto groupId){
-        return ResponseEntity.ok(groupsService.getMessages(groupId.groupId()));
+    public ResponseEntity<List<GroupMessageDto>> getMessages(@RequestBody @Valid GroupIdDto groupId, @RequestParam("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
+        return ResponseEntity.ok(groupsService.getMessages(groupId.groupId(), date));
     }
 
     @Operation(summary = "api.group.messages.send.operation.summary")
@@ -77,8 +79,7 @@ public class GroupController {
             // 404
     })
     @PostMapping("/new")
-    public ResponseEntity<Void> create(@RequestBody @Valid GroupDto group){
-        groupsService.create(group);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<GroupIdDto> create(@RequestBody @Valid GroupDto group){
+        return ResponseEntity.ok(groupsService.create(group));
     }
 }

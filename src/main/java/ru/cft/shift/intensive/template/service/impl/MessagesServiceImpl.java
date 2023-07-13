@@ -7,6 +7,7 @@ import ru.cft.shift.intensive.template.repository.MessagesRepository;
 import ru.cft.shift.intensive.template.repository.entity.Messages;
 import ru.cft.shift.intensive.template.service.MessagesService;
 
+import java.time.LocalDate;
 import java.util.*;
 
 import static ru.cft.shift.intensive.template.utils.MessengerUtils.*;
@@ -21,9 +22,9 @@ public class MessagesServiceImpl implements MessagesService {
     }
 
     @Override
-    public List<MessageDto> getMessages(String user1, String user2) {
-        List<Messages> messagesFromUser1 = messagesRepository.findByKey_UserFromAndKey_UserTo(user1, user2);
-        List<Messages> messagesFromUser2 = messagesRepository.findByKey_UserFromAndKey_UserTo(user2, user1);
+    public List<MessageDto> getMessages(String user1, String user2, LocalDate date) {
+        List<Messages> messagesFromUser1 = messagesRepository.findByKey_UserFromAndKey_UserToAndKey_Date(user1, user2, date);
+        List<Messages> messagesFromUser2 = messagesRepository.findByKey_UserFromAndKey_UserToAndKey_Date(user2, user1, date);
 
         List<Messages> allMessages = new ArrayList<>();
         allMessages.addAll(messagesFromUser1);

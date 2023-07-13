@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface GroupsRepository extends CassandraRepository<Groups, String> {
     @AllowFiltering
-    public List<Groups> findByUsersContains(String user);
+    List<Groups> findByUsersContains(String user);
 }

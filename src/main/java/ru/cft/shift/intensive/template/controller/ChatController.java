@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import ru.cft.shift.intensive.template.dto.ChatDto;
 import ru.cft.shift.intensive.template.dto.MessageDto;
 import ru.cft.shift.intensive.template.service.MessagesService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -53,8 +55,8 @@ public class ChatController {
             // 404
     })
     @GetMapping()
-    public ResponseEntity<List<MessageDto>> getMessages(@RequestBody @Valid ChatDto chat){
-        return ResponseEntity.ok(messagesService.getMessages(chat.user1(), chat.user2()));
+    public ResponseEntity<List<MessageDto>> getMessages(@RequestBody @Valid ChatDto chat, @RequestParam("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
+        return ResponseEntity.ok(messagesService.getMessages(chat.user1(), chat.user2(), date));
     }
 
     // Отправка сообщений в чат
@@ -66,7 +68,6 @@ public class ChatController {
     })
     @PostMapping()
     public ResponseEntity<Void> sendMessage(@RequestBody @Valid MessageDto message){
-        // проверить что юзеры существуют
         messagesService.sendMessage(message);
         return ResponseEntity.ok().build();
     }
