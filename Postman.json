@@ -1,0 +1,368 @@
+{
+	"info": {
+		"_postman_id": "7ed9237f-59a4-4507-b556-eedb0b76bb67",
+		"name": "Messenger",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28468630"
+	},
+	"item": [
+		{
+			"name": "Вход пользователя?",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"LadislavUlyanov143\",\n    \"password\": \"qwerty123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создание пользователя",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"LadislavUlyanov143\",\n    \"password\": \"qwerty123\",\n    \"firstName\": \"Ладислав\",\n    \"lastName\": \"Ульянов\",\n    \"patronymic\" : \"Давидович\",\n    \"dateOfBirth\": \"1988-01-03\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение данных о пользователе",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/users/LadislavUlyanov143",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users",
+						"LadislavUlyanov143"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Изменение своего профиля",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"LadislavUlyanov143\",\n    \"firstName\": \"Ладислав\",\n    \"lastName\": \"Ульянов\",\n    \"patronymic\" : \"Давидович\",\n    \"dateOfBirth\": \"2000-03-01\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Поиск пользователей?",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/users?username=LadislavUlyanov143&firstName=Ладислав&lastName=Ульянов&patronymic=Давидович&dateOfBirth=1988-01-04",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "LadislavUlyanov143"
+						},
+						{
+							"key": "firstName",
+							"value": "Ладислав"
+						},
+						{
+							"key": "lastName",
+							"value": "Ульянов"
+						},
+						{
+							"key": "patronymic",
+							"value": "Давидович"
+						},
+						{
+							"key": "dateOfBirth",
+							"value": "1988-01-04"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение списка диалогов пользователя?",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/chats/LadislavUlyanov143",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"chats",
+						"LadislavUlyanov143"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение сообщений из чата",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user1\": \"LadislavUlyanov143\",   // это наш юзер\n    \"user2\": \"YuliyDorzhinov573\" // это тот на чей диалог тыкнули\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/chats?date=2023-07-13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"chats"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2023-07-13"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Отправка сообщений в чат",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userFrom\": \"LadislavUlyanov143\",\n    \"userTo\": \"YuliyDorzhinov573\",\n    \"message\": \"Hello!\",\n    \"date\": \"2023-01-01\",\n    \"time\": \"11:56\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/chats",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"chats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение списка групп пользователя",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/groups/LadislavUlyanov143",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"LadislavUlyanov143"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Создание группы",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\t// id генерируется в бэке\n    \"admin\": \"LadislavUlyanov143\",\n    \"title\": \"ChatTest\",\n    \"users\": [\"LadislavUlyanov143\", \"YuliyDorzhinov573\"]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/groups/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Отправка сообщений в группу",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"groupId\": \"ed20fb99-d3fc-436b-904a-42170043060b\",\n    \"userFrom\": \"LadislavUlyanov143\",\n    \"message\": \"Hello!\",\n\t\"date\": \"2023-07-13\",\n\t\"time\": \"11:56\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/groups",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Получение сообщений из группы",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"groupId\": \"ed20fb99-d3fc-436b-904a-42170043060b\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/groups?date=2023-07-13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"groups"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2023-07-13"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
