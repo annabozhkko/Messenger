@@ -40,7 +40,6 @@ public class ChatController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
-            // 404
     })
     @GetMapping("{username}")
     public ResponseEntity<List<UsernameDto>> getChats(@PathVariable @Size(min = 5, max = 32) String username){
@@ -52,7 +51,6 @@ public class ChatController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.messages.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
-            // 404
     })
     @GetMapping()
     public ResponseEntity<List<MessageDto>> getMessages(@RequestBody @Valid ChatDto chat, @RequestParam("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){
@@ -64,7 +62,6 @@ public class ChatController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.messages.send.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
-            // 404
     })
     @PostMapping()
     public ResponseEntity<Void> sendMessage(@RequestBody @Valid MessageDto message){

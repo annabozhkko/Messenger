@@ -44,12 +44,10 @@ public class UserController {
     return ResponseEntity.ok(this.usersService.list());
   }
 
-  // из нашего апи Создание пользователя
   @Operation(summary = "api.user.create.operation.summary")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "api.user.create.api-responses.200.description"),
       @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
-          // HTTP Status 400
   })
   @PostMapping("register")
   public ResponseEntity<UsernameDto> createUser(@RequestBody @Valid UserDto user) {
@@ -68,8 +66,6 @@ public class UserController {
     return ResponseEntity.ok().build();
   }
 
-
-  // Получение данных о пользователе
   @Operation(summary = "api.user.get.operation.summary")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "api.user.get.api-responses.200.description"),
@@ -81,7 +77,6 @@ public class UserController {
     return ResponseEntity.ok(this.usersService.findByUsername(username));
   }
 
-  // Изменение своего профиля
   @Operation(summary = "api.user.update.operation.summary")
   @ApiResponses(value = {
           @ApiResponse(responseCode = "200", description = "api.user.update.api-responses.200.description"),

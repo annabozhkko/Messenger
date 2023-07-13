@@ -1,5 +1,7 @@
 package ru.cft.shift.intensive.template.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.cft.shift.intensive.template.dto.GroupMessageDto;
@@ -10,6 +12,8 @@ import ru.cft.shift.intensive.template.service.GroupMessagesService;
 @Service
 public class GroupsMessagesServiceImpl implements GroupMessagesService {
     private final GroupMessagesRepository groupMessagesRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(GroupsMessagesServiceImpl.class);
 
     @Autowired
     public GroupsMessagesServiceImpl(GroupMessagesRepository groupMessagesRepository) {
@@ -26,5 +30,7 @@ public class GroupsMessagesServiceImpl implements GroupMessagesService {
         messages.setTime(messageDto.time());
 
         groupMessagesRepository.save(messages);
+
+        logger.info("Message from " + messageDto.userFrom() + " to group chat " + messageDto.groupId() + " sent");
     }
 }

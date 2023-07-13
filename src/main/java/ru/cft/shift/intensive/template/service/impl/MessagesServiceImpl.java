@@ -1,5 +1,7 @@
 package ru.cft.shift.intensive.template.service.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.cft.shift.intensive.template.dto.MessageDto;
@@ -17,6 +19,8 @@ import static ru.cft.shift.intensive.template.utils.MessengerUtils.*;
 @Service
 public class MessagesServiceImpl implements MessagesService {
     private final MessagesRepository messagesRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(MessagesServiceImpl.class);
 
     @Autowired
     public MessagesServiceImpl(MessagesRepository messagesRepository) {
@@ -55,6 +59,8 @@ public class MessagesServiceImpl implements MessagesService {
         messages.setTime(messageDto.time());
 
         messagesRepository.save(messages);
+
+        logger.info("Message from " + messageDto.userFrom() + " to " + messageDto.userTo() + " sent");
     }
 
     @Override

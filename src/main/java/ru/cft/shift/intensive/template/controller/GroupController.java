@@ -42,7 +42,6 @@ public class GroupController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.group.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
-            // 404
     })
     @GetMapping("{username}")
     public ResponseEntity<List<GroupDto>> getChats(@PathVariable @Size(min = 5, max = 32) String username){
@@ -64,7 +63,6 @@ public class GroupController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.group.messages.send.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
-            // 404
     })
     @PostMapping()
     public ResponseEntity<Void> sendMessage( @RequestBody @Valid GroupMessageDto message){
@@ -76,7 +74,6 @@ public class GroupController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.group.create.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
-            // 404
     })
     @PostMapping("/new")
     public ResponseEntity<GroupIdDto> create(@RequestBody @Valid GroupDto group){
