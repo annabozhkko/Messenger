@@ -3,6 +3,7 @@ package ru.cft.shift.intensive.template.utils;
 import ru.cft.shift.intensive.template.dto.GroupDto;
 import ru.cft.shift.intensive.template.dto.GroupMessageDto;
 import ru.cft.shift.intensive.template.dto.MessageDto;
+import ru.cft.shift.intensive.template.dto.UsernameDto;
 import ru.cft.shift.intensive.template.repository.entity.GroupMessages;
 import ru.cft.shift.intensive.template.repository.entity.Groups;
 import ru.cft.shift.intensive.template.repository.entity.Messages;
@@ -19,4 +20,5 @@ public class MessengerUtils {
 
     public static final Function<Groups, GroupDto> TO_GROUPS_DTO_FUNCTION = groups ->
             new GroupDto(groups.getAdmin(), groups.getTitle(), groups.getUsers());
+
 }

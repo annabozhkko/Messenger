@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.cft.shift.intensive.template.dto.ChatDto;
 import ru.cft.shift.intensive.template.dto.MessageDto;
+import ru.cft.shift.intensive.template.dto.UsernameDto;
 import ru.cft.shift.intensive.template.service.MessagesService;
 
 import java.time.LocalDate;
@@ -42,9 +43,8 @@ public class ChatController {
             // 404
     })
     @GetMapping("{username}")
-    public ResponseEntity<List<ChatDto>> getChats(@PathVariable @Size(min = 5, max = 32) String username){
-        // chatDto - ???
-        return ResponseEntity.ok().build();
+    public ResponseEntity<List<UsernameDto>> getChats(@PathVariable @Size(min = 5, max = 32) String username){
+        return ResponseEntity.ok(messagesService.getChats(username));
     }
 
     // Получение сообщений из чата

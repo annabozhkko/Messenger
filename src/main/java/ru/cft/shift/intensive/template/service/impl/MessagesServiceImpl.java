@@ -3,12 +3,14 @@ package ru.cft.shift.intensive.template.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.cft.shift.intensive.template.dto.MessageDto;
+import ru.cft.shift.intensive.template.dto.UsernameDto;
 import ru.cft.shift.intensive.template.repository.MessagesRepository;
 import ru.cft.shift.intensive.template.repository.entity.Messages;
 import ru.cft.shift.intensive.template.service.MessagesService;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static ru.cft.shift.intensive.template.utils.MessengerUtils.*;
 
@@ -53,5 +55,18 @@ public class MessagesServiceImpl implements MessagesService {
         messages.setTime(messageDto.time());
 
         messagesRepository.save(messages);
+    }
+
+    @Override
+    public List<UsernameDto> getChats(String username) {
+        List<Messages> messagesTo = messagesRepository.findByKey_UserTo(username);
+        List<Messages> messagesFrom = messagesRepository.findByKey_UserFrom(username);
+
+        List<UsernameDto> usersTo = messagesTo.stream().map(messages ->
+                new UsernameDto(messages.getUserFrom())).distinct().toList();
+        List<UsernameDto> usersFrom = messagesFrom.stream().map(messages ->
+                new UsernameDto(messages.getUserTo())).distinct().toList();
+
+        return Stream.concat(usersTo.stream(), usersFrom.stream()).distinct().toList();
     }
 }
