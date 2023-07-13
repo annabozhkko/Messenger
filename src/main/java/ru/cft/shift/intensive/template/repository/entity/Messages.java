@@ -3,8 +3,8 @@ package ru.cft.shift.intensive.template.repository.entity;
 import org.springframework.data.cassandra.core.cql.PrimaryKeyType;
 import org.springframework.data.cassandra.core.mapping.*;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Table("messages")
 public class Messages {
@@ -20,14 +20,14 @@ public class Messages {
         @PrimaryKeyColumn(name = "from_user", type = PrimaryKeyType.PARTITIONED, ordinal = 0)
         private String userFrom;
         @PrimaryKeyColumn(name = "message_date", type = PrimaryKeyType.CLUSTERED, ordinal = 1)
-        private Date date;
+        private LocalDate date;
         @PrimaryKeyColumn(name = "message_time", type = PrimaryKeyType.CLUSTERED, ordinal = 1)
         private LocalTime time;
 
         public Key() {
         }
 
-        public Key(String userTo, String userFrom, Date date, LocalTime time) {
+        public Key(String userTo, String userFrom, LocalDate date, LocalTime time) {
             this.userTo = userTo;
             this.userFrom = userFrom;
             this.date = date;
@@ -51,11 +51,11 @@ public class Messages {
         return key.userFrom;
     }
 
-    public void setDate(Date date){
+    public void setDate(LocalDate date){
         key.date = date;
     }
 
-    public Date getDate(){
+    public LocalDate getDate(){
         return key.date;
     }
 

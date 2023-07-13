@@ -1,4 +1,4 @@
-create keyspace messenger with replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
+create keyspace if not exists messenger with replication = {'class': 'SimpleStrategy', 'replication_factor': 1};
 
 create table messenger.users
 (
@@ -11,12 +11,12 @@ create table messenger.users
     primary key (username)
 );
 
-create index on messenger.users(first_name);
-create index on messenger.users(last_name);
-create index on messenger.users(patronymic);
-create index on messenger.users(birthday);
+create index if not exists on messenger.users(first_name);
+create index if not exists on messenger.users(last_name);
+create index if not exists on messenger.users(patronymic);
+create index if not exists on messenger.users(birthday);
 
-create table messenger.messages
+create table if not exists messenger.messages
 (
     from_user       text,
     to_user         text,
@@ -26,7 +26,7 @@ create table messenger.messages
     primary key ( (from_user, to_user), message_date, message_time)
 ) with clustering order by ( message_date desc, message_time desc);
 
-create table messenger.group_list
+create table if not exists messenger.group_list
 (   admin       text,
     title       text,
     users       set<text>,
@@ -34,7 +34,7 @@ create table messenger.group_list
     primary key (group_id)
 );
 
-create table messenger.group_messages
+create table if not exists messenger.group_messages
 (
     group_id        uuid,
     user_from       text,
@@ -43,6 +43,3 @@ create table messenger.group_messages
     message_time    time,
     primary key ( (group_id), message_date, message_time )
 ) with clustering order by ( message_date desc, message_time desc);
-
-INSERT INTO messenger.users(username, birthday, first_name, last_name, password)
-VALUES ('aaaaaaaa', '2001-01-01', 'Anna', 'Bozhko', 'qwerty');
