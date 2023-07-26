@@ -52,7 +52,6 @@ public class GroupController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.group.messages.api-responses.200.description"),
             @ApiResponse(responseCode = "500", description = "api.server.error", content = {@Content(mediaType = APPLICATION_JSON_VALUE, schema = @Schema(implementation = ErrorControllerAdvice.ErrorResponse.class))})
-            // 404
     })
     @GetMapping()
     public ResponseEntity<List<GroupMessageDto>> getMessages(@RequestBody @Valid GroupIdDto groupId, @RequestParam("date")@DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date){

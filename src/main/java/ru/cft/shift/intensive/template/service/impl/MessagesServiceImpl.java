@@ -36,7 +36,6 @@ public class MessagesServiceImpl implements MessagesService {
         allMessages.addAll(messagesFromUser1);
         allMessages.addAll(messagesFromUser2);
 
-        // сортировка по дате и времени
         allMessages.sort((m1, m2) -> {
             int dateComparison = m1.getDate().compareTo(m2.getDate());
             if (dateComparison != 0) {

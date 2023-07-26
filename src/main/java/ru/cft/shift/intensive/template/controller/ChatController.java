@@ -35,7 +35,6 @@ public class ChatController {
         this.messagesService = messagesService;
     }
 
-    // Получение списка диалогов пользователя
     @Operation(summary = "api.chat.operation.summary")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.api-responses.200.description"),
@@ -46,7 +45,6 @@ public class ChatController {
         return ResponseEntity.ok(messagesService.getChats(username));
     }
 
-    // Получение сообщений из чата
     @Operation(summary = "api.chat.messages.operation.summary")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.messages.api-responses.200.description"),
@@ -57,7 +55,6 @@ public class ChatController {
         return ResponseEntity.ok(messagesService.getMessages(chat.user1(), chat.user2(), date));
     }
 
-    // Отправка сообщений в чат
     @Operation(summary = "api.chat.messages.send.operation.summary")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "api.chat.messages.send.api-responses.200.description"),

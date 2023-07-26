@@ -1,7 +1,5 @@
 package ru.cft.shift.intensive.template.service;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import ru.cft.shift.intensive.template.dto.GroupDto;
 import ru.cft.shift.intensive.template.dto.GroupIdDto;
 import ru.cft.shift.intensive.template.dto.GroupMessageDto;

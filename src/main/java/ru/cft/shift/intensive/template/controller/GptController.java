@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/gpt")
 public class GptController {
     private static final String OPENAI_API_URL = "https://api.openai.com/v1/engines/text-davinci-003/completions";
-    private static final String OPENAI_API_KEY = "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";
+    private static final String OPENAI_API_KEY = "";
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
